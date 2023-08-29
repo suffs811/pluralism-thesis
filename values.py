@@ -93,6 +93,11 @@ dist_values = dist.most_common(10)
 for v in dist_values:
     print(f"{v[0]}: {v[1]}")
 
+#dist.plot(10, title="Frequency Distribution of Moral Values")
+
+#*** To Generate the Frequency Distribution Graph, uncomment the above statement ***
+
+
 '''
 RESULTS:
 
