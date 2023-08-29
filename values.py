@@ -63,7 +63,6 @@ Score: 0.01250037644058466   Topic: 0.213*"compassion" + 0.130*"respect" + 0.088
 
 ######################################
 # create frequency distribution graph from moral values table
-moral_values = [*list of Moral Value Tables*]
 dist = FreqDist(moral_values)
 dist_values = dist.most_common(10)
 for v in dist_values:
