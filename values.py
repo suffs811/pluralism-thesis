@@ -5,6 +5,7 @@
 from gensim import corpora
 from gensim.models import LdaModel
 from nltk.corpus import stopwords
+from nltk import FreqDist
 import nltk
 import gensim
 
@@ -24,6 +25,8 @@ lda_model = gensim.models.ldamodel.LdaModel(
     eval_every = 1)
 lda_model.save('lda_train.model')
 lda_topics = lda_model.print_topics()
+
+print("\n### Top Ten LDA Topics ###\n")
 
 for t in lda_topics:
     print(f"Topic {t[0]+1}: {t[1]}")
@@ -46,12 +49,15 @@ Topic 10: 0.245*"peace" + 0.205*"justice" + 0.044*"nature" + 0.044*"individualis
 # classify the Moral Values Table based on the ten LDA topics 
 ######################################
 
+print("\n### Classification of Moral Values Based on the Ten LDA Topics ###\n")
+
 bow_vector = dictionary.doc2bow(moral_values)
 for index, score in sorted(lda_model[bow_vector], key=lambda tup: -1*tup[1]):
     print("Score: {}\t Topic: {}".format(score, lda_model.print_topic(index, 5)))
 
 '''
 TYPICAL RESULTS:
+One Topic Word:
 Score: 0.26256901025772095   Topic: 0.156*"integrity"
 Score: 0.1375010907649994    Topic: 0.061*"equity"
 Score: 0.13749247789382935   Topic: 0.106*"meditation"
@@ -63,6 +69,7 @@ Score: 0.012500379234552383  Topic: 0.205*"compassion"
 Score: 0.012500379234552383  Topic: 0.255*"love"
 Score: 0.012500379234552383  Topic: 0.245*"peace"
 
+Five Topic Words:
 Score: 0.26256904006004333   Topic: 0.156*"integrity" + 0.106*"contentment" + 0.055*"self-interest" + 0.055*"hospitality" + 0.055*"purity"
 Score: 0.1375010907649994    Topic: 0.061*"openness" + 0.061*"intellect" + 0.061*"karma" + 0.061*"equity" + 0.061*"goodness"
 Score: 0.13749246299266815   Topic: 0.106*"freedom" + 0.106*"meditation" + 0.055*"frugality" + 0.055*"perseverance" + 0.055*"power"
@@ -78,6 +85,8 @@ Score: 0.012500379234552383  Topic: 0.245*"peace" + 0.205*"justice" + 0.044*"nat
 ######################################
 # create frequency distribution graph from moral values table
 ######################################
+
+print("\n### Frequency Distribution of Moral Values ###\n")
 
 dist = FreqDist(moral_values)
 dist_values = dist.most_common(10)
