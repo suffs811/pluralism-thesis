@@ -1,11 +1,13 @@
 ######################################
 # determine top ten LDA topics
+######################################
+
 from gensim import corpora
 from gensim.models import LdaModel
 from nltk.corpus import stopwords
 import nltk
+import gensim
 
-nltk.download('stopwords')
 
 moral_values = ['Generosity', 'Kindness', 'Life', 'Truth', 'Wisdom', 'Self-interest', 'Tolerance', 'Religion', 'Unity', 'Dignity', 'Courage', 'Generosity', 'Religion', 'Integrity', 'Environmentalism', 'Cooperation', 'Service', 'Compassion', 'Love', 'Justice', 'Love', 'Gratefulness', 'Communalism', 'Love', 'Obedience', 'Justice', 'Economic-Justice', 'Family', 'Peace', 'Equity', 'Respect', 'Inclusivity', 'Intellect', 'Peace', 'Understanding', 'Community', 'Individualism', 'Purity', 'Respect', 'Compassion', 'Hope', 'Repentance', 'Family', 'Non-Violence', 'Effort', 'Acceptance', 'Power', 'Fairness', 'Communalism', 'Truth', 'Peace', 'Communalism', 'Wealth', 'Harmony', 'Truth', 'Beauty', 'Openness', 'Civility', 'Compassion', 'Democracy', 'Obedience', 'Protection', 'Self-Sacrifice', 'Karma', 'Mindfulness', 'Love', 'Self-Direction', 'Peace', 'Faithfulness', 'Courage', 'Frugality', 'Meditation', 'Meditation', 'Creativity', 'Stimulation', 'Liberty', 'Humility', 'Friendship', 'Contentment', 'Selflessness', 'Attitude', 'Consequentialism', 'Hedonism', 'Humanity', 'Honor', 'Curiosity', 'Justice', 'Honesty', 'Harmony', 'Reason', 'Achievement', 'Liberty', 'Justice', 'Peace', 'Peace', 'Accommodation', 'Family', 'Science', 'Love', 'Truth', 'Justice', 'Equality', 'Straightforwardness', 'Reason', 'Contentment', 'Integrity', 'Freedom', 'Compassion', 'Science', 'Patience', 'Hospitality', 'bravery', 'Nature', 'Kindness', 'Respect', 'truthfulness', 'Acceptance', 'Goodness', 'Religion', 'Fidelity', 'Self-Control', 'Freedom', 'magnanimity', 'Descent', 'integrity', 'Reputation', 'Dignity', 'Perseverance', 'restraint', 'Love', 'politeness', 'Humanity', 'amiability', 'Humility', 'Compassion']
 stop_words = set(stopwords.words('english'))
@@ -14,55 +16,69 @@ processed_values = [[word for word in value.lower().split() if word not in stop_
 dictionary = corpora.Dictionary(processed_values)
 corpus = [dictionary.doc2bow(value) for value in processed_values]
 
-lda_train = gensim.models.ldamulticore.LdaMulticore(
-   corpus,
-   num_topics=10,
-   id2word=dictionary,
-   passes=50,
-   eval_every = 1,
-   per_word_topics=True)
-lda_train.save('lda_train.model')
-lda_topics = lda_train.print_topics()
+lda_model = gensim.models.ldamodel.LdaModel(
+    corpus=corpus, 
+    num_topics=10, 
+    id2word=dictionary, 
+    passes=100,
+    eval_every = 1)
+lda_model.save('lda_train.model')
+lda_topics = lda_model.print_topics()
 
 for t in lda_topics:
     print(f"Topic {t[0]+1}: {t[1]}")
   
 '''
 TYPICAL RESULTS:
-Topic 1: 0.092*"science" + 0.092*"harmony" + 0.048*"unity" + 0.048*"community" + 0.048*"effort" + 0.048*"bravery" + 0.048*"goodness" + 0.048*"honor" + 0.048*"restraint" + 0.048*"reputation"
-Topic 2: 0.236*"love" + 0.081*"kindness" + 0.042*"descent" + 0.042*"service" + 0.042*"hedonism" + 0.042*"self-direction" + 0.042*"self-control" + 0.042*"understanding" + 0.042*"politeness" + 0.042*"self-interest"
-Topic 3: 0.341*"peace" + 0.061*"faithfulness" + 0.061*"karma" + 0.061*"protection" + 0.006*"consequentialism" + 0.006*"attitude" + 0.006*"contentment" + 0.006*"hedonism" + 0.006*"honor" + 0.006*"humanity"
-Topic 4: 0.130*"religion" + 0.130*"family" + 0.088*"humility" + 0.088*"liberty" + 0.046*"straightforwardness" + 0.046*"wealth" + 0.046*"hospitality" + 0.046*"purity" + 0.046*"tolerance" + 0.004*"compassion"
-Topic 5: 0.156*"integrity" + 0.106*"dignity" + 0.055*"patience" + 0.055*"cooperation" + 0.055*"attitude" + 0.055*"openness" + 0.055*"beauty" + 0.055*"fidelity" + 0.005*"respect" + 0.005*"selflessness"
-Topic 6: 0.111*"freedom" + 0.111*"acceptance" + 0.058*"nature" + 0.058*"truthfulness" + 0.058*"perseverance" + 0.058*"consequentialism" + 0.058*"environmentalism" + 0.058*"achievement" + 0.005*"meditation" + 0.005*"truth"
-Topic 7: 0.187*"truth" + 0.096*"humanity" + 0.050*"fairness" + 0.050*"power" + 0.050*"equality" + 0.050*"economic-justice" + 0.050*"friendship" + 0.050*"honesty" + 0.050*"frugality" + 0.005*"contentment"
-Topic 8: 0.171*"justice" + 0.171*"compassion" + 0.104*"respect" + 0.070*"reason" + 0.070*"obedience" + 0.037*"mindfulness" + 0.037*"gratefulness" + 0.037*"stimulation" + 0.037*"creativity" + 0.003*"liberty"
-Topic 9: 0.135*"communalism" + 0.092*"contentment" + 0.048*"wisdom" + 0.048*"intellect" + 0.048*"repentance" + 0.048*"hope" + 0.048*"selflessness" + 0.048*"curiosity" + 0.048*"self-sacrifice" + 0.048*"non-violence"
-Topic 10: 0.106*"generosity" + 0.106*"courage" + 0.106*"meditation" + 0.055*"democracy" + 0.055*"accommodation" + 0.055*"equity" + 0.055*"civility" + 0.055*"inclusivity" + 0.005*"humanity" + 0.005*"hedonism"
+Topic 1: 0.120*"communalism" + 0.081*"courage" + 0.081*"reason" + 0.081*"acceptance" + 0.042*"honesty" + 0.042*"gratefulness" + 0.042*"selflessness" + 0.042*"self-direction" + 0.042*"understanding" + 0.042*"cooperation"
+Topic 2: 0.096*"dignity" + 0.096*"science" + 0.096*"kindness" + 0.096*"obedience" + 0.050*"friendship" + 0.050*"hedonism" + 0.050*"curiosity" + 0.050*"mindfulness" + 0.050*"faithfulness" + 0.005*"justice"
+Topic 3: 0.156*"integrity" + 0.106*"contentment" + 0.055*"self-interest" + 0.055*"hospitality" + 0.055*"purity" + 0.055*"truthfulness" + 0.055*"democracy" + 0.055*"civility" + 0.005*"obedience" + 0.005*"consequentialism"
+Topic 4: 0.142*"religion" + 0.096*"humility" + 0.050*"economic-justice" + 0.050*"patience" + 0.050*"creativity" + 0.050*"self-control" + 0.050*"community" + 0.050*"politeness" + 0.050*"descent" + 0.050*"reputation"
+Topic 5: 0.061*"goodness" + 0.061*"hope" + 0.061*"protection" + 0.061*"amiability" + 0.061*"intellect" + 0.061*"openness" + 0.061*"equity" + 0.061*"karma" + 0.061*"fidelity" + 0.006*"attitude"
+Topic 6: 0.205*"compassion" + 0.084*"humanity" + 0.084*"liberty" + 0.084*"harmony" + 0.044*"attitude" + 0.044*"equality" + 0.044*"accommodation" + 0.044*"wisdom" + 0.044*"life" + 0.004*"hedonism"
+Topic 7: 0.179*"truth" + 0.135*"respect" + 0.092*"generosity" + 0.048*"wealth" + 0.048*"self-sacrifice" + 0.048*"restraint" + 0.048*"honor" + 0.048*"fairness" + 0.004*"communalism" + 0.004*"justice"
+Topic 8: 0.106*"meditation" + 0.106*"freedom" + 0.055*"power" + 0.055*"environmentalism" + 0.055*"achievement" + 0.055*"straightforwardness" + 0.055*"perseverance" + 0.055*"frugality" + 0.055*"bravery" + 0.005*"respect"
+Topic 9: 0.255*"love" + 0.130*"family" + 0.046*"unity" + 0.046*"stimulation" + 0.046*"beauty" + 0.046*"repentance" + 0.046*"service" + 0.046*"effort" + 0.004*"reason" + 0.004*"curiosity"
+Topic 10: 0.245*"peace" + 0.205*"justice" + 0.044*"nature" + 0.044*"individualism" + 0.044*"non-violence" + 0.044*"consequentialism" + 0.044*"inclusivity" + 0.004*"integrity" + 0.004*"communalism" + 0.004*"harmony"
 '''
 
 ######################################
 # classify the Moral Values Table based on the ten LDA topics 
+######################################
+
 bow_vector = dictionary.doc2bow(moral_values)
 for index, score in sorted(lda_model[bow_vector], key=lambda tup: -1*tup[1]):
     print("Score: {}\t Topic: {}".format(score, lda_model.print_topic(index, 5)))
-  
+
 '''
-RESULTS:
-Score: 0.26254600286483765   Topic: 0.096*"freedom" + 0.096*"liberty" + 0.050*"cooperation" + 0.050*"goodness" + 0.050*"perseverance"
-Score: 0.13751927018165588   Topic: 0.171*"truth" + 0.130*"integrity" + 0.088*"acceptance" + 0.088*"contentment" + 0.046*"accommodation"
-Score: 0.1374957263469696    Topic: 0.105*"kindness" + 0.105*"courage" + 0.055*"beauty" + 0.055*"democracy" + 0.055*"unity"
-Score: 0.13748475909233093   Topic: 0.266*"love" + 0.135*"religion" + 0.048*"honor" + 0.048*"equity" + 0.048*"civility"
-Score: 0.13747799396514893   Topic: 0.245*"peace" + 0.084*"meditation" + 0.044*"frugality" + 0.044*"understanding" + 0.044*"wealth"
-Score: 0.13747476041316986   Topic: 0.197*"justice" + 0.081*"humility" + 0.081*"harmony" + 0.042*"nature" + 0.042*"mindfulness"
-Score: 0.012500377371907234  Topic: 0.173*"family" + 0.061*"self-interest" + 0.061*"service" + 0.061*"protection" + 0.061*"stimulation"
-Score: 0.012500377371907234  Topic: 0.148*"communalism" + 0.100*"dignity" + 0.053*"achievement" + 0.053*"honesty" + 0.053*"curiosity"
-Score: 0.012500377371907234  Topic: 0.096*"science" + 0.096*"generosity" + 0.096*"humanity" + 0.096*"reason" + 0.050*"environmentalism"
-Score: 0.01250037644058466   Topic: 0.213*"compassion" + 0.130*"respect" + 0.088*"obedience" + 0.046*"repentance" + 0.046*"fairness"
+TYPICAL RESULTS:
+Score: 0.26256901025772095   Topic: 0.156*"integrity"
+Score: 0.1375010907649994    Topic: 0.061*"equity"
+Score: 0.13749247789382935   Topic: 0.106*"meditation"
+Score: 0.13748463988304138   Topic: 0.142*"religion"
+Score: 0.13748086988925934   Topic: 0.179*"truth"
+Score: 0.13747039437294006   Topic: 0.120*"communalism"
+Score: 0.012500380165874958  Topic: 0.096*"kindness"
+Score: 0.012500379234552383  Topic: 0.205*"compassion"
+Score: 0.012500379234552383  Topic: 0.255*"love"
+Score: 0.012500379234552383  Topic: 0.245*"peace"
+
+Score: 0.26256904006004333   Topic: 0.156*"integrity" + 0.106*"contentment" + 0.055*"self-interest" + 0.055*"hospitality" + 0.055*"purity"
+Score: 0.1375010907649994    Topic: 0.061*"openness" + 0.061*"intellect" + 0.061*"karma" + 0.061*"equity" + 0.061*"goodness"
+Score: 0.13749246299266815   Topic: 0.106*"freedom" + 0.106*"meditation" + 0.055*"frugality" + 0.055*"perseverance" + 0.055*"power"
+Score: 0.1374845951795578    Topic: 0.142*"religion" + 0.096*"humility" + 0.050*"creativity" + 0.050*"economic-justice" + 0.050*"patience"
+Score: 0.13748088479042053   Topic: 0.179*"truth" + 0.135*"respect" + 0.092*"generosity" + 0.048*"restraint" + 0.048*"honor"
+Score: 0.13747036457061768   Topic: 0.120*"communalism" + 0.081*"acceptance" + 0.081*"courage" + 0.081*"reason" + 0.042*"honesty"
+Score: 0.012500380165874958  Topic: 0.096*"science" + 0.096*"obedience" + 0.096*"dignity" + 0.096*"kindness" + 0.050*"hedonism"
+Score: 0.012500379234552383  Topic: 0.205*"compassion" + 0.084*"humanity" + 0.084*"liberty" + 0.084*"harmony" + 0.044*"attitude"
+Score: 0.012500379234552383  Topic: 0.255*"love" + 0.130*"family" + 0.046*"unity" + 0.046*"stimulation" + 0.046*"beauty"
+Score: 0.012500379234552383  Topic: 0.245*"peace" + 0.205*"justice" + 0.044*"nature" + 0.044*"individualism" + 0.044*"non-violence"
 '''
 
 ######################################
 # create frequency distribution graph from moral values table
+######################################
+
 dist = FreqDist(moral_values)
 dist_values = dist.most_common(10)
 for v in dist_values:
