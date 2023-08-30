@@ -1,7 +1,7 @@
 # Pluralism Thesis
-Python scripts for analyzing moral values via NLP/LDA and generating frequency distribution graph 
+Python script for analyzing moral values via NLP/LDA for topic modeling and generating a frequency distribution 
 
-This Script:
+I wrote this script for my gradue thesis. The Script:
 1. Identifies the top ten LDA topics for the Moral Values list
 2. Classifies the top ten LDA topics according to the Moral Values list
 3. Produces a frequency distribution for the top ten most used Moral Values
