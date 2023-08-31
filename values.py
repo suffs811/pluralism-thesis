@@ -86,14 +86,14 @@ Score: 0.012500379234552383  Topic: 0.245*"peace" + 0.205*"justice" + 0.044*"nat
 # create frequency distribution graph from moral values table
 ######################################
 
-print("\n### Frequency Distribution of Moral Values ###\n")
+print("\n### Frequency Distribution of Top Ten Moral Values ###\n")
 
 dist = FreqDist(moral_values)
 dist_values = dist.most_common(10)
 for v in dist_values:
     print(f"{v[0]}: {v[1]}")
 
-#dist.plot(10, title="Frequency Distribution of Moral Values")
+#dist.plot(10, title="Frequency Distribution of Top Ten Moral Values")
 
 #*** To Generate the Frequency Distribution Graph, uncomment the above statement ***
 
