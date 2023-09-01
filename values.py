@@ -5,8 +5,8 @@
 # install necessary libraries
 import os
 print("### Installing necessary libraries (nltk & gensim) ###")
-os.system("pip install nltk >/dev/null || echo 'unable to install nltk; please install manually before proceeding.'")
-os.system("pip install gensim >/dev/null || echo 'unable to install gensim; please install manually before proceeding.'")
+os.system("pip install nltk >/dev/null || echo '*** unable to install nltk; please install manually before proceeding. ***'")
+os.system("pip install gensim >/dev/null || echo '*** unable to install gensim; please install manually before proceeding. ***'")
 
 # import necessary packages
 from gensim import corpora
@@ -17,7 +17,17 @@ import nltk
 import gensim
 
 # set values and create list of processed words
-moral_values = ['Generosity', 'Kindness', 'Life', 'Truth', 'Wisdom', 'Self-interest', 'Tolerance', 'Religion', 'Unity', 'Dignity', 'Courage', 'Generosity', 'Religion', 'Integrity', 'Environmentalism', 'Cooperation', 'Service', 'Compassion', 'Love', 'Justice', 'Love', 'Gratefulness', 'Communalism', 'Love', 'Obedience', 'Justice', 'Economic-Justice', 'Family', 'Peace', 'Equity', 'Respect', 'Inclusivity', 'Intellect', 'Peace', 'Understanding', 'Community', 'Individualism', 'Purity', 'Respect', 'Compassion', 'Hope', 'Repentance', 'Family', 'Non-Violence', 'Effort', 'Acceptance', 'Power', 'Fairness', 'Communalism', 'Truth', 'Peace', 'Communalism', 'Wealth', 'Harmony', 'Truth', 'Beauty', 'Openness', 'Civility', 'Compassion', 'Democracy', 'Obedience', 'Protection', 'Self-Sacrifice', 'Karma', 'Mindfulness', 'Love', 'Self-Direction', 'Peace', 'Faithfulness', 'Courage', 'Frugality', 'Meditation', 'Meditation', 'Creativity', 'Stimulation', 'Liberty', 'Humility', 'Friendship', 'Contentment', 'Selflessness', 'Attitude', 'Consequentialism', 'Hedonism', 'Humanity', 'Honor', 'Curiosity', 'Justice', 'Honesty', 'Harmony', 'Reason', 'Achievement', 'Liberty', 'Justice', 'Peace', 'Peace', 'Accommodation', 'Family', 'Science', 'Love', 'Truth', 'Justice', 'Equality', 'Straightforwardness', 'Reason', 'Contentment', 'Integrity', 'Freedom', 'Compassion', 'Science', 'Patience', 'Hospitality', 'bravery', 'Nature', 'Kindness', 'Respect', 'truthfulness', 'Acceptance', 'Goodness', 'Religion', 'Fidelity', 'Self-Control', 'Freedom', 'magnanimity', 'Descent', 'integrity', 'Reputation', 'Dignity', 'Perseverance', 'restraint', 'Love', 'politeness', 'Humanity', 'amiability', 'Humility', 'Compassion']
+moral_values = ['Generosity', 'Kindness', 'Life', 'Truth', 'Wisdom', 'Self-interest', 'Tolerance', 'Religion', 'Unity', 'Dignity', 'Courage', 'Generosity', 
+'Religion', 'Integrity', 'Environmentalism', 'Cooperation', 'Service', 'Compassion', 'Love', 'Justice', 'Love', 'Gratefulness', 'Communalism', 'Love', 'Obedience', 
+'Justice', 'Economic-Justice', 'Family', 'Peace', 'Equity', 'Respect', 'Inclusivity', 'Intellect', 'Peace', 'Understanding', 'Community', 'Individualism', 
+'Purity', 'Respect', 'Compassion', 'Hope', 'Repentance', 'Family', 'Non-Violence', 'Effort', 'Acceptance', 'Power', 'Fairness', 'Communalism', 'Truth', 'Peace', 
+'Communalism', 'Wealth', 'Harmony', 'Truth', 'Beauty', 'Openness', 'Civility', 'Compassion', 'Democracy', 'Obedience', 'Protection', 'Self-Sacrifice', 'Karma', 
+'Mindfulness', 'Love', 'Self-Direction', 'Peace', 'Faithfulness', 'Courage', 'Frugality', 'Meditation', 'Meditation', 'Creativity', 'Stimulation', 'Liberty', 
+'Humility', 'Friendship', 'Contentment', 'Selflessness', 'Attitude', 'Consequentialism', 'Hedonism', 'Humanity', 'Honor', 'Curiosity', 'Justice', 'Honesty', 
+'Harmony', 'Reason', 'Achievement', 'Liberty', 'Justice', 'Peace', 'Peace', 'Accommodation', 'Family', 'Science', 'Love', 'Truth', 'Justice', 'Equality', 
+'Straightforwardness', 'Reason', 'Contentment', 'Integrity', 'Freedom', 'Compassion', 'Science', 'Patience', 'Hospitality', 'bravery', 'Nature', 'Kindness', 
+'Respect', 'truthfulness', 'Acceptance', 'Goodness', 'Religion', 'Fidelity', 'Self-Control', 'Freedom', 'magnanimity', 'Descent', 'integrity', 'Reputation', 
+'Dignity', 'Perseverance', 'restraint', 'Love', 'politeness', 'Humanity', 'amiability', 'Humility', 'Compassion']
 stop_words = set(stopwords.words('english'))
 processed_values = [[word for word in value.lower().split() if word not in stop_words] for value in moral_values]
 
@@ -43,16 +53,26 @@ for t in lda_topics:
   
 '''
 TYPICAL RESULTS:
-Topic 1: 0.120*"communalism" + 0.081*"courage" + 0.081*"reason" + 0.081*"acceptance" + 0.042*"honesty" + 0.042*"gratefulness" + 0.042*"selflessness" + 0.042*"self-direction" + 0.042*"understanding" + 0.042*"cooperation"
-Topic 2: 0.096*"dignity" + 0.096*"science" + 0.096*"kindness" + 0.096*"obedience" + 0.050*"friendship" + 0.050*"hedonism" + 0.050*"curiosity" + 0.050*"mindfulness" + 0.050*"faithfulness" + 0.005*"justice"
-Topic 3: 0.156*"integrity" + 0.106*"contentment" + 0.055*"self-interest" + 0.055*"hospitality" + 0.055*"purity" + 0.055*"truthfulness" + 0.055*"democracy" + 0.055*"civility" + 0.005*"obedience" + 0.005*"consequentialism"
-Topic 4: 0.142*"religion" + 0.096*"humility" + 0.050*"economic-justice" + 0.050*"patience" + 0.050*"creativity" + 0.050*"self-control" + 0.050*"community" + 0.050*"politeness" + 0.050*"descent" + 0.050*"reputation"
-Topic 5: 0.061*"goodness" + 0.061*"hope" + 0.061*"protection" + 0.061*"amiability" + 0.061*"intellect" + 0.061*"openness" + 0.061*"equity" + 0.061*"karma" + 0.061*"fidelity" + 0.006*"attitude"
-Topic 6: 0.205*"compassion" + 0.084*"humanity" + 0.084*"liberty" + 0.084*"harmony" + 0.044*"attitude" + 0.044*"equality" + 0.044*"accommodation" + 0.044*"wisdom" + 0.044*"life" + 0.004*"hedonism"
-Topic 7: 0.179*"truth" + 0.135*"respect" + 0.092*"generosity" + 0.048*"wealth" + 0.048*"self-sacrifice" + 0.048*"restraint" + 0.048*"honor" + 0.048*"fairness" + 0.004*"communalism" + 0.004*"justice"
-Topic 8: 0.106*"meditation" + 0.106*"freedom" + 0.055*"power" + 0.055*"environmentalism" + 0.055*"achievement" + 0.055*"straightforwardness" + 0.055*"perseverance" + 0.055*"frugality" + 0.055*"bravery" + 0.005*"respect"
-Topic 9: 0.255*"love" + 0.130*"family" + 0.046*"unity" + 0.046*"stimulation" + 0.046*"beauty" + 0.046*"repentance" + 0.046*"service" + 0.046*"effort" + 0.004*"reason" + 0.004*"curiosity"
-Topic 10: 0.245*"peace" + 0.205*"justice" + 0.044*"nature" + 0.044*"individualism" + 0.044*"non-violence" + 0.044*"consequentialism" + 0.044*"inclusivity" + 0.004*"integrity" + 0.004*"communalism" + 0.004*"harmony"
+Topic 1: 0.120*"communalism" + 0.081*"courage" + 0.081*"reason" + 0.081*"acceptance" + 0.042*"honesty" + 0.042*"gratefulness" + 0.042*"selflessness" + 
+0.042*"self-direction" + 0.042*"understanding" + 0.042*"cooperation"
+Topic 2: 0.096*"dignity" + 0.096*"science" + 0.096*"kindness" + 0.096*"obedience" + 0.050*"friendship" + 0.050*"hedonism" + 0.050*"curiosity" + 0.050*"mindfulness" 
++ 0.050*"faithfulness" + 0.005*"justice"
+Topic 3: 0.156*"integrity" + 0.106*"contentment" + 0.055*"self-interest" + 0.055*"hospitality" + 0.055*"purity" + 0.055*"truthfulness" + 0.055*"democracy" + 
+0.055*"civility" + 0.005*"obedience" + 0.005*"consequentialism"
+Topic 4: 0.142*"religion" + 0.096*"humility" + 0.050*"economic-justice" + 0.050*"patience" + 0.050*"creativity" + 0.050*"self-control" + 0.050*"community" + 
+0.050*"politeness" + 0.050*"descent" + 0.050*"reputation"
+Topic 5: 0.061*"goodness" + 0.061*"hope" + 0.061*"protection" + 0.061*"amiability" + 0.061*"intellect" + 0.061*"openness" + 0.061*"equity" + 0.061*"karma" + 
+0.061*"fidelity" + 0.006*"attitude"
+Topic 6: 0.205*"compassion" + 0.084*"humanity" + 0.084*"liberty" + 0.084*"harmony" + 0.044*"attitude" + 0.044*"equality" + 0.044*"accommodation" + 0.044*"wisdom" + 
+0.044*"life" + 0.004*"hedonism"
+Topic 7: 0.179*"truth" + 0.135*"respect" + 0.092*"generosity" + 0.048*"wealth" + 0.048*"self-sacrifice" + 0.048*"restraint" + 0.048*"honor" + 0.048*"fairness" + 
+0.004*"communalism" + 0.004*"justice"
+Topic 8: 0.106*"meditation" + 0.106*"freedom" + 0.055*"power" + 0.055*"environmentalism" + 0.055*"achievement" + 0.055*"straightforwardness" + 0.055*"perseverance" 
++ 0.055*"frugality" + 0.055*"bravery" + 0.005*"respect"
+Topic 9: 0.255*"love" + 0.130*"family" + 0.046*"unity" + 0.046*"stimulation" + 0.046*"beauty" + 0.046*"repentance" + 0.046*"service" + 0.046*"effort" + 
+0.004*"reason" + 0.004*"curiosity"
+Topic 10: 0.245*"peace" + 0.205*"justice" + 0.044*"nature" + 0.044*"individualism" + 0.044*"non-violence" + 0.044*"consequentialism" + 0.044*"inclusivity" + 
+0.004*"integrity" + 0.004*"communalism" + 0.004*"harmony"
 '''
 
 ######################################
