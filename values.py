@@ -4,7 +4,7 @@
 
 # install necessary libraries
 import os
-print("### Installing necessary libraries (nltk & gensim) ###\n")
+print("### Installing necessary libraries (nltk & gensim) ###")
 os.system("pip install nltk >/dev/null || echo 'unable to install nltk; please install manually before proceeding.'")
 os.system("pip install gensim >/dev/null || echo 'unable to install gensim; please install manually before proceeding.'")
 
