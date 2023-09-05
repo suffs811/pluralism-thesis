@@ -84,8 +84,7 @@ print("\n### Classification of Moral Values Based on the Ten LDA Topics ###\n")
 # create bag of words from moral values list and classify topics according to values list
 bow_vector = dictionary.doc2bow(moral_values)
 for index, score in sorted(lda_model[bow_vector], key=lambda tup: -1*tup[1]):
-    # change (index, 5) to (index, 1) below depending on how many topic words you want to see
-    print("Score: {}\t Topic: {}".format(score, lda_model.print_topic(index, 5)))
+    print("Score: {}\t Topic: {}".format(score, lda_model.print_topic(index, 1)))
 
 '''
 TYPICAL RESULTS:
@@ -100,18 +99,6 @@ Score: 0.012500380165874958  Topic: 0.096*"kindness"
 Score: 0.012500379234552383  Topic: 0.205*"compassion"
 Score: 0.012500379234552383  Topic: 0.255*"love"
 Score: 0.012500379234552383  Topic: 0.245*"peace"
-
-Five Topic Words:
-Score: 0.26256904006004333   Topic: 0.156*"integrity" + 0.106*"contentment" + 0.055*"self-interest" + 0.055*"hospitality" + 0.055*"purity"
-Score: 0.1375010907649994    Topic: 0.061*"openness" + 0.061*"intellect" + 0.061*"karma" + 0.061*"equity" + 0.061*"goodness"
-Score: 0.13749246299266815   Topic: 0.106*"freedom" + 0.106*"meditation" + 0.055*"frugality" + 0.055*"perseverance" + 0.055*"power"
-Score: 0.1374845951795578    Topic: 0.142*"religion" + 0.096*"humility" + 0.050*"creativity" + 0.050*"economic-justice" + 0.050*"patience"
-Score: 0.13748088479042053   Topic: 0.179*"truth" + 0.135*"respect" + 0.092*"generosity" + 0.048*"restraint" + 0.048*"honor"
-Score: 0.13747036457061768   Topic: 0.120*"communalism" + 0.081*"acceptance" + 0.081*"courage" + 0.081*"reason" + 0.042*"honesty"
-Score: 0.012500380165874958  Topic: 0.096*"science" + 0.096*"obedience" + 0.096*"dignity" + 0.096*"kindness" + 0.050*"hedonism"
-Score: 0.012500379234552383  Topic: 0.205*"compassion" + 0.084*"humanity" + 0.084*"liberty" + 0.084*"harmony" + 0.044*"attitude"
-Score: 0.012500379234552383  Topic: 0.255*"love" + 0.130*"family" + 0.046*"unity" + 0.046*"stimulation" + 0.046*"beauty"
-Score: 0.012500379234552383  Topic: 0.245*"peace" + 0.205*"justice" + 0.044*"nature" + 0.044*"individualism" + 0.044*"non-violence"
 '''
 
 ######################################
