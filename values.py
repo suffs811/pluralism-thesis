@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-# author: suffs811
-# Copyright (c) 2023 suffs811
-# View the LICENSE for information on warranty and distribution
+# author: Tanner Smith (suffs811)
+# Copyright (c) 2023 Tanner Smith (suffs811)
+# Software licensed under the GNU General Public License v2.0
+# View the LICENSE in GitHub for information on warranty and distribution
 # https://github.com/suffs811/pluralism-thesis
 
 ##################################
