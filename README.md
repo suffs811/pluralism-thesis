@@ -1,9 +1,9 @@
 # Analysis of Moral Values Using Natural Language Processing
 Python script for analyzing moral values via Natural Langauge Processing (NLP) & the Latent Dirichlet Allocation (LDA) method for topic modeling. 
 
-I wrote this script for my gradue thesis. The script:
+I wrote this script for my graduate thesis. The script:
 1. identifies the ten most salient topics of the Moral Values list
-2. classifies the topics according a single value from the Moral Values list
+2. classifies the topics according to a single value from the Moral Values list
 3. produces a frequency distribution for the ten most used values in the Moral Values list
 
 ## Preferred Citation
