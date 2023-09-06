@@ -1,6 +1,11 @@
-######################################
-# determine top ten LDA topics
-######################################
+#!/usr/bin/python3
+# author: suffs811
+# Copyright (c) 2023 suffs811
+# https://github.com/suffs811/pluralism-thesis
+
+##################################
+# determine the top ten LDA topics
+##################################
 
 # install necessary libraries
 import os
@@ -51,9 +56,9 @@ print("\n### Top Ten LDA Topics ###\n")
 for t in lda_topics:
     print(f"Topic {t[0]+1}: {t[1]}")
 
-######################################
+#############################################################
 # classify the Moral Values Table based on the ten LDA topics 
-######################################
+#############################################################
 
 print("\n### Classification of Moral Values Based on the Ten LDA Topics ###\n")
 
@@ -62,9 +67,9 @@ bow_vector = dictionary.doc2bow(moral_values)
 for index, score in sorted(lda_model[bow_vector], key=lambda tup: -1*tup[1]):
     print("Score: {}\t Topic: {}".format(score, lda_model.print_topic(index, 1)))
 
-######################################
-# create frequency distribution graph from moral values table
-######################################
+#################################################################
+# create frequency distribution graph from the moral values table
+#################################################################
 
 print("\n### Frequency Distribution of Top Ten Moral Values ###\n")
 
