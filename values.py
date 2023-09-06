@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # author: suffs811
 # Copyright (c) 2023 suffs811
+# View the LICENSE for information on warranty and distribution
 # https://github.com/suffs811/pluralism-thesis
 
 ##################################
